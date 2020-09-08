@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trasks</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style>
+        body {
+            background-color: #1a50b6;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+
+        input::placeholder {
+            color: #d3d3d3;
+        }
+
+        .submit {
+            background-color: #6BA3E8;
+        }
+
+        .center-column {
+            width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #c7c7c3;
+            border-radius: 3px;
+            box-shadow: 6px 2px 30px 0px rgba(0, 0, 0, 0.75);
+        }
+
+        .item-row {
+            background-color: #ffffff;
+            margin: 10px;
+            padding: 20px;
+            border-radius: 3px;
+            color: #0000ff;
+            font-size: 16px;
+            box-shadow: 0px -1px 10px -4px rgba(0, 0, 0, 0.75);
+        }
+
+        .btn-danger {
+            background-color: #aaaaaa;
+            border-color: #949494;
+        }
+        
+        h3{
+            text-align: center;
+            color: #0000ff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="center-column">
+    <h3>Sistema de Tarefas</h3>
+
+    <form method="POST" action="/">
+        {% csrf_token %}
+        {{form.title}}
+            <input class="btn btn-info" type="submit" value="Cadastrar">
+        
+    </form>
+    <div class="list">
+        {% for cruding in crudings %}
+        <div class="item-row">
+            <a class="btn btn-sm btn-info" href="{% url 'update_task' cruding.id %}">Atualizar</a>
+            <a class="btn btn-sm btn-danger" href="{% url 'delete_task' cruding.id %}">Delir</a>
+            
+            {% if cruding.complete == True %}
+            <strike>{{cruding}}</strike>
+            {% else %}
+            <span>{{cruding}}</span>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    </div>
+</body>
+
+</html>
